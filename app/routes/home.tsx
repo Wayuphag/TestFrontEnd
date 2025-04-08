@@ -6,13 +6,27 @@ export default function Home() {
   const [profile, setProfile] = useState<any>(null);
   useEffect(() => {
     const getProfile = async () => {
-      if(liff.isLoggedIn()) {
-        const prof = await liff.getProfile();
-        setProfile(prof);
-        console.log(prof)
+      try {
+        if(liff.isLoggedIn()) {
+          const prof = await liff
+          .getProfile()
+          .then((prof) => {
+            const name = prof.displayName;
+            console.log(name)
+          })
+          .catch((err) => {
+            console.log("error", err);
+          });
+          // setProfile();
+          
+        }
+      } catch (err) {
+        console.error('LIFF init error', err);
       }
     };
-    getProfile();
+    
+      getProfile();
+    
   }, [])
   const sendMessage = () => {
     liff.sendMessages([
@@ -30,14 +44,14 @@ export default function Home() {
     <>
     <button className="bg-red-400 px-4 rounded-full" onClick={sendMessage}>Send</button>
       <h1>LINE LIFF Demo</h1>
-      {profile ? (
+      {/* {profile ? (
         <div>
           <p>Name: {profile.displayName}</p>
           <img src={profile.pictureUrl} alt="profile" width={100} />
         </div>
       ) : (
         <p>Loading profile...</p>
-      )}
+      )} */}
     </>
         
   );
