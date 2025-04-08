@@ -7,17 +7,12 @@ export default function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   useEffect(() => {
     const getProfile = async () => {
-      try {
-        setIsLoggedIn(liff.isLoggedIn());
-        if(liff.isLoggedIn()) {
-          const prof = await liff.getProfile();
-          setProfile(prof);
-        }
-      } catch (err) {
-        console.error('LIFF init error', err);
+      if(liff.isLoggedIn()) {
+        const prof = await liff.getProfile();
+        setProfile(prof);
       }
     };
-      getProfile();
+    getProfile();
     
   }, [])
   const sendMessage = () => {
@@ -39,19 +34,15 @@ export default function Home() {
     <>
     <button className="bg-red-400 px-4 rounded-full" onClick={sendMessage}>Send</button>
       <h1>LINE LIFF Demo</h1>
-      {/* {profile ? (
+      {profile ? (
         <div>
           <p>Name: {profile.displayName}</p>
           <img src={profile.pictureUrl} alt="profile" width={100} />
+          <button className="bg-gray-400 px-4 rounded-full" onClick={Logout}>Logout</button>
         </div>
       ) : (
         <p>Loading profile...</p>
-      )} */}
-      {isLoggedIn && (
-        <button className="bg-gray-400 px-4 rounded-full" onClick={Logout}>Logout</button>
-         )
-      } 
-
+      )} 
     </>
         
   );
