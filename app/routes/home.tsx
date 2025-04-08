@@ -9,6 +9,7 @@ export default function Home() {
       if(liff.isLoggedIn()) {
         const prof = await liff.getProfile();
         setProfile(prof);
+        console.log(prof)
       }
     };
     getProfile();
