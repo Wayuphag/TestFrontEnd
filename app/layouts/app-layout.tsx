@@ -4,7 +4,7 @@ import { initLiff } from "~/liffInit";
 
 export default function AppLayout(){
     useEffect(() => {
-        initLiff
+        initLiff();
       },[]);
     return (
         <div>
